@@ -11,7 +11,7 @@ type JobCardProps = {
 function JobCard({job, onAccept}: JobCardProps) {
 
     const durationByMins = (duration: number): string => {
-        return `${(Math.floor(duration / 60)).toString().padStart(2, "0")}h:${Math.floor(duration % 60).toString().padStart(2, "0")}min`
+        return `${(Math.floor(duration / 60)).toString().padStart(1, "0")}h ${Math.floor(duration % 60).toString().padStart(2, "0")}min`
     }; 
 
     const priceByEuros = (price: number): string => {
@@ -23,14 +23,16 @@ function JobCard({job, onAccept}: JobCardProps) {
             year: "numeric",
             month: "2-digit",
             day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
             timeZone: "Europe/Lisbon"
         }).format(new Date(date));
     }
 
     return (
     <TableRow className="text-center">
-        <TableCell> {job.city} </TableCell>
         <TableCell> {job.service} </TableCell>
+        <TableCell> {job.city} </TableCell>
         <TableCell> {formatDate(job.startsAt)} </TableCell>
         <TableCell> {durationByMins(job.durationMin)} </TableCell>
         <TableCell> {priceByEuros(job.priceCents)}€ </TableCell>
